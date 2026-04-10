@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Challenge Game</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    background-color: gray;
+    font-family: Verdana, sans-serif;
+    margin: 20px;
+}
+
+article {
+    background-color: gray;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 1px white;
+    padding: 20px;
+    max-width: 480px;
+    margin: auto;
+    margin-top: 40px;
+    color: white;
+    font-size: 22px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+button:hover {
+    background-color: #666;
+    transform: scale(1.03);
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+input[type=radio] {
+    transform: scale(1.3);
+    margin-right: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<section>
+<article id="game">
+
+    <h2 style="text-align:center;">Ready for a Challenge?</h2>
+
+    <p style="text-align:center;">Test your knowledge with 5 quick questions.</p>
+
+    <button onclick="startGame()">Begin</button>
+
+</article>
+</section>
+
+<script>
+function startGame() {
+    document.getElementById("game").innerHTML = `
+        <h2 style="text-align:center;">Challenge Questions</h2>
+
+        <div class="question">
+            <p>1. What is the closest planet to the sun?</p>
+            <label><input type="radio" name="q1" value="Mercury"> Mercury</label><br>
+            <label><input type="radio" name="q1" value="Venus"> Venus</label><br>
+            <label><input type="radio" name="q1" value="Earth"> Earth</label>
+        </div>
+
+        <div class="question">
+            <p>2. What’s another word for “hysterical”?</p>
+            <label><input type="radio" name="q2" value="Funny"> Funny</label><br>
+            <label><input type="radio" name="q2" value="Calm"> Calm</label><br>
+            <label><input type="radio" name="q2" value="Silent"> Silent</label>
+        </div>
+
+        <div class="question">
+            <p>3. How many continents are there?</p>
+            <label><input type="radio" name="q3" value="5"> 5</label><br>
+            <label><input type="radio" name="q3" value="6"> 6</label><br>
+            <label><input type="radio" name="q3" value="7"> 7</label>
+        </div>
+
+        <div class="question">
+            <p>4. What gas do plants breathe in?</p>
+            <label><input type="radio" name="q4" value="Oxygen"> Oxygen</label><br>
+            <label><input type="radio" name="q4" value="Carbon Dioxide"> Carbon Dioxide</label><br>
+            <label><input type="radio" name="q4" value="Nitrogen"> Nitrogen</label>
+        </div>
+
+        <div class="question">
+            <p>5. What is the largest ocean on Earth?</p>
+            <label><input type="radio" name="q5" value="Atlantic"> Atlantic</label><br>
+            <label><input type="radio" name="q5" value="Pacific"> Pacific</label><br>
+            <label><input type="radio" name="q5" value="Indian"> Indian</label>
+        </div>
+
+        <button onclick="submitAnswers()">Submit Answers</button>
+    `;
+}
+
+function submitAnswers() {
+    let correct = 0;
+
+    const answers = {
+        q1: "Mercury",
+        q2: "Funny",
+        q3: "7",
+        q4: "Carbon Dioxide",
+        q5: "Pacific"
+    };
+
+    for (let q in answers) {
+        let selected = document.querySelector(`input[name="${q}"]:checked`);
+        if (selected && selected.value === answers[q]) {
+            correct++;
+        }
+    }
+
+    let wrong = 5 - correct;
+
+    document.getElementById("game").innerHTML = `
+        <h2 style="text-align:center;">Results</h2>
+        <p>You got <strong>${correct}</strong> correct and <strong>${wrong}</strong> wrong.</p>
+        <button onclick="location.reload()">Play Again</button>
+    `;
+}
+</script>
+
+</body>
+</html>
